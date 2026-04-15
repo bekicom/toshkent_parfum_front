@@ -101,7 +101,7 @@ export function AppLayout() {
     <div className="app-shell">
       <aside className="sidebar">
         <div className="brand-block brand-block-simple">
-          <h1>ATAWAY</h1>
+          <h1>Do'kon</h1>
         </div>
 
         <nav className="sidebar-nav">

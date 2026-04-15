@@ -12,7 +12,7 @@ export function LoginPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    document.title = "ATAWAY SKLAD";
+    document.title = "Do'kon";
   }, []);
 
   const handleSubmit = async (event) => {
@@ -31,7 +31,7 @@ export function LoginPage() {
     <div className="login-page">
       <form className="login-card" onSubmit={handleSubmit}>
         <div className="login-head">
-          <h1>ATAWAY SKLAD</h1>
+          <h1>Do'kon</h1>
         </div>
 
         <label>

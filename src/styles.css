@@ -500,14 +500,14 @@ a {
   font-size: 1.02rem;
   font-weight: 600;
   cursor: pointer;
-  background: linear-gradient(180deg, #ffb15b, #f2762e);
-  box-shadow: 0 16px 35px rgba(242, 118, 46, 0.34);
+  background: dodgerblue;
+  box-shadow: 0 16px 35px rgba(30, 144, 255, 0.34);
   transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
 }
 
 .login-submit-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 20px 38px rgba(242, 118, 46, 0.42);
+  box-shadow: 0 20px 38px rgba(30, 144, 255, 0.42);
 }
 
 .login-submit-btn:disabled {
@@ -886,12 +886,10 @@ a {
 .login-page {
   min-height: 100vh;
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 10vh 24px 24px 14%;
-  background:
-    linear-gradient(180deg, rgba(14, 23, 45, 0.38), rgba(14, 23, 45, 0.62)),
-    url("/login-bg.png") center/cover no-repeat;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: dodgerblue;
 }
 
 .login-card {
@@ -899,7 +897,7 @@ a {
   padding: 38px 34px;
   border-radius: 28px;
   border: 1px solid rgba(255, 206, 158, 0.34);
-  background: linear-gradient(180deg, rgba(255, 156, 84, 0.26), rgba(170, 74, 28, 0.34));
+  background: white;
   box-shadow: 0 24px 70px rgba(74, 26, 7, 0.34);
   backdrop-filter: blur(14px);
   display: grid;
@@ -909,17 +907,17 @@ a {
 .login-card label {
   display: grid;
   gap: 8px;
-  color: #fff1e2;
+  color: black;
   font-weight: 500;
 }
 
 .login-card input {
   width: 100%;
   height: 54px;
-  border: 1px solid rgba(255, 214, 176, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.18);
   border-radius: 16px;
-  background: rgba(73, 29, 13, 0.28);
-  color: #fffaf5;
+  background: white;
+  color: black;
   padding: 14px 16px;
   outline: none;
   font-size: 1rem;
@@ -957,7 +955,7 @@ a {
   border-radius: 14px;
   background: rgba(243, 77, 68, 0.12);
   border: 1px solid rgba(243, 77, 68, 0.28);
-  color: #ffb3ae;
+  color: #d32f2f;
 }
 
 .page-loader {
