@@ -1,9 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL ||
-  (import.meta.env.MODE === "production"
-    ? "https://toshkent-parfum.ataway.uz/api"
-    : "/api");
+const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || "";
+const baseUrl =
+  import.meta.env.MODE === "production"
+    ? rawBaseUrl && rawBaseUrl !== "/api"
+      ? rawBaseUrl
+      : "https://toshkent-parfum-backend-z6ig.vercel.app/api"
+    : rawBaseUrl || "/api";
 
 const baseQuery = fetchBaseQuery({
   baseUrl,
@@ -28,6 +31,16 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["Auth", "Dashboard", "Category", "Supplier", "SupplierDetail", "Product", "Purchase", "Transfer", "Store"],
+  tagTypes: [
+    "Auth",
+    "Dashboard",
+    "Category",
+    "Supplier",
+    "SupplierDetail",
+    "Product",
+    "Purchase",
+    "Transfer",
+    "Store",
+  ],
   endpoints: () => ({}),
 });

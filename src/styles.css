@@ -27,7 +27,11 @@ body,
   margin: 0;
   min-height: 100%;
   background:
-    radial-gradient(circle at top right, rgba(45, 165, 255, 0.14), transparent 28%),
+    radial-gradient(
+      circle at top right,
+      rgba(45, 165, 255, 0.14),
+      transparent 28%
+    ),
     linear-gradient(180deg, #101b33 0%, #0d1730 100%);
   color: var(--text);
 }
@@ -167,7 +171,11 @@ a {
 .stat-card {
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(35, 55, 96, 0.92), rgba(28, 46, 83, 0.96));
+  background: linear-gradient(
+    180deg,
+    rgba(35, 55, 96, 0.92),
+    rgba(28, 46, 83, 0.96)
+  );
   box-shadow: var(--shadow);
 }
 
@@ -502,7 +510,10 @@ a {
   cursor: pointer;
   background: dodgerblue;
   box-shadow: 0 16px 35px rgba(30, 144, 255, 0.34);
-  transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    opacity 0.16s ease;
 }
 
 .login-submit-btn:hover {
@@ -528,7 +539,11 @@ a {
 .purchase-date-card {
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(35, 55, 96, 0.92), rgba(28, 46, 83, 0.96));
+  background: linear-gradient(
+    180deg,
+    rgba(35, 55, 96, 0.92),
+    rgba(28, 46, 83, 0.96)
+  );
   box-shadow: var(--shadow);
   overflow: hidden;
 }
@@ -836,7 +851,11 @@ a {
 }
 
 .category-variant-row td {
-  background: linear-gradient(180deg, rgba(245, 248, 255, 0.98), rgba(236, 241, 251, 0.98));
+  background: linear-gradient(
+    180deg,
+    rgba(245, 248, 255, 0.98),
+    rgba(236, 241, 251, 0.98)
+  );
   color: #1c2947;
   font-size: 0.94rem;
   border-bottom-color: rgba(173, 188, 220, 0.45);
@@ -991,7 +1010,11 @@ a {
   overflow: auto;
   border-radius: 28px;
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(25, 42, 78, 0.98), rgba(18, 31, 58, 0.98));
+  background: linear-gradient(
+    180deg,
+    rgba(25, 42, 78, 0.98),
+    rgba(18, 31, 58, 0.98)
+  );
   box-shadow: var(--shadow);
 }
 
@@ -1069,26 +1092,73 @@ a {
   color: #f4f7ff;
 }
 
-.preset-chip:has(.color-qizil) { background: rgba(229, 57, 53, 0.62); }
-.preset-chip:has(.color-qora) { background: rgba(33, 33, 33, 0.78); }
-.preset-chip:has(.color-oq) { background: rgba(245, 245, 245, 0.72); color: #18243f; }
-.preset-chip:has(.color-kok) { background: rgba(30, 136, 229, 0.68); }
-.preset-chip:has(.color-havorang) { background: rgba(79, 195, 247, 0.7); color: #17304b; }
-.preset-chip:has(.color-yashil) { background: rgba(67, 160, 71, 0.68); }
-.preset-chip:has(.color-sariq) { background: rgba(253, 216, 53, 0.76); color: #3f3200; }
-.preset-chip:has(.color-kulrang) { background: rgba(144, 164, 174, 0.7); }
-.preset-chip:has(.color-jigarrang) { background: rgba(141, 110, 99, 0.72); }
-.preset-chip:has(.color-bej) { background: rgba(215, 184, 153, 0.72); color: #3b2a19; }
-.preset-chip:has(.color-pushti) { background: rgba(236, 64, 122, 0.68); }
-.preset-chip:has(.color-siyohrang) { background: rgba(142, 36, 170, 0.68); }
-.preset-chip:has(.color-toq-kok) { background: rgba(40, 53, 147, 0.72); }
-.preset-chip:has(.color-toq-yashil) { background: rgba(27, 94, 32, 0.72); }
-.preset-chip:has(.color-bordo) { background: rgba(142, 36, 48, 0.7); }
-.preset-chip:has(.color-zangori) { background: rgba(0, 172, 193, 0.7); }
-.preset-chip:has(.color-oltin) { background: rgba(201, 162, 39, 0.76); color: #352800; }
-.preset-chip:has(.color-kumush) { background: rgba(176, 190, 197, 0.74); color: #213044; }
-.preset-chip:has(.color-apelsin) { background: rgba(251, 140, 0, 0.72); }
-.preset-chip:has(.color-krem) { background: rgba(255, 243, 214, 0.76); color: #3d3015; }
+.preset-chip:has(.color-qizil) {
+  background: rgba(229, 57, 53, 0.62);
+}
+.preset-chip:has(.color-qora) {
+  background: rgba(33, 33, 33, 0.78);
+}
+.preset-chip:has(.color-oq) {
+  background: rgba(245, 245, 245, 0.72);
+  color: #18243f;
+}
+.preset-chip:has(.color-kok) {
+  background: rgba(30, 136, 229, 0.68);
+}
+.preset-chip:has(.color-havorang) {
+  background: rgba(79, 195, 247, 0.7);
+  color: #17304b;
+}
+.preset-chip:has(.color-yashil) {
+  background: rgba(67, 160, 71, 0.68);
+}
+.preset-chip:has(.color-sariq) {
+  background: rgba(253, 216, 53, 0.76);
+  color: #3f3200;
+}
+.preset-chip:has(.color-kulrang) {
+  background: rgba(144, 164, 174, 0.7);
+}
+.preset-chip:has(.color-jigarrang) {
+  background: rgba(141, 110, 99, 0.72);
+}
+.preset-chip:has(.color-bej) {
+  background: rgba(215, 184, 153, 0.72);
+  color: #3b2a19;
+}
+.preset-chip:has(.color-pushti) {
+  background: rgba(236, 64, 122, 0.68);
+}
+.preset-chip:has(.color-siyohrang) {
+  background: rgba(142, 36, 170, 0.68);
+}
+.preset-chip:has(.color-toq-kok) {
+  background: rgba(40, 53, 147, 0.72);
+}
+.preset-chip:has(.color-toq-yashil) {
+  background: rgba(27, 94, 32, 0.72);
+}
+.preset-chip:has(.color-bordo) {
+  background: rgba(142, 36, 48, 0.7);
+}
+.preset-chip:has(.color-zangori) {
+  background: rgba(0, 172, 193, 0.7);
+}
+.preset-chip:has(.color-oltin) {
+  background: rgba(201, 162, 39, 0.76);
+  color: #352800;
+}
+.preset-chip:has(.color-kumush) {
+  background: rgba(176, 190, 197, 0.74);
+  color: #213044;
+}
+.preset-chip:has(.color-apelsin) {
+  background: rgba(251, 140, 0, 0.72);
+}
+.preset-chip:has(.color-krem) {
+  background: rgba(255, 243, 214, 0.76);
+  color: #3d3015;
+}
 
 .color-dot {
   width: 12px;
@@ -1098,26 +1168,66 @@ a {
   flex: 0 0 12px;
 }
 
-.color-qizil { background: #e53935; }
-.color-qora { background: #212121; }
-.color-oq { background: #f5f5f5; }
-.color-kok { background: #1e88e5; }
-.color-havorang { background: #4fc3f7; }
-.color-yashil { background: #43a047; }
-.color-sariq { background: #fdd835; }
-.color-kulrang { background: #90a4ae; }
-.color-jigarrang { background: #8d6e63; }
-.color-bej { background: #d7b899; }
-.color-pushti { background: #ec407a; }
-.color-siyohrang { background: #8e24aa; }
-.color-toq-kok { background: #283593; }
-.color-toq-yashil { background: #1b5e20; }
-.color-bordo { background: #8e2430; }
-.color-zangori { background: #00acc1; }
-.color-oltin { background: #c9a227; }
-.color-kumush { background: #b0bec5; }
-.color-apelsin { background: #fb8c00; }
-.color-krem { background: #fff3d6; }
+.color-qizil {
+  background: #e53935;
+}
+.color-qora {
+  background: #212121;
+}
+.color-oq {
+  background: #f5f5f5;
+}
+.color-kok {
+  background: #1e88e5;
+}
+.color-havorang {
+  background: #4fc3f7;
+}
+.color-yashil {
+  background: #43a047;
+}
+.color-sariq {
+  background: #fdd835;
+}
+.color-kulrang {
+  background: #90a4ae;
+}
+.color-jigarrang {
+  background: #8d6e63;
+}
+.color-bej {
+  background: #d7b899;
+}
+.color-pushti {
+  background: #ec407a;
+}
+.color-siyohrang {
+  background: #8e24aa;
+}
+.color-toq-kok {
+  background: #283593;
+}
+.color-toq-yashil {
+  background: #1b5e20;
+}
+.color-bordo {
+  background: #8e2430;
+}
+.color-zangori {
+  background: #00acc1;
+}
+.color-oltin {
+  background: #c9a227;
+}
+.color-kumush {
+  background: #b0bec5;
+}
+.color-apelsin {
+  background: #fb8c00;
+}
+.color-krem {
+  background: #fff3d6;
+}
 
 .variant-grid {
   display: grid;
@@ -1969,7 +2079,6 @@ a {
     flex-direction: column;
     align-items: stretch;
   }
-
 }
 
 @media (max-width: 1500px) {

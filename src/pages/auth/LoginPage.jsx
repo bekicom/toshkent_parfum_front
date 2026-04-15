@@ -38,7 +38,9 @@ export function LoginPage() {
           <span>Login</span>
           <input
             value={form.username}
-            onChange={(event) => setForm((prev) => ({ ...prev, username: event.target.value }))}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, username: event.target.value }))
+            }
             placeholder="Login kiriting"
           />
         </label>
@@ -48,7 +50,9 @@ export function LoginPage() {
           <input
             type="password"
             value={form.password}
-            onChange={(event) => setForm((prev) => ({ ...prev, password: event.target.value }))}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, password: event.target.value }))
+            }
             placeholder="Parol kiriting"
           />
         </label>

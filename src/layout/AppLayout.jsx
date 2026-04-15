@@ -110,7 +110,9 @@ export function AppLayout() {
               key={item.to}
               to={item.to}
               end={item.to === "/"}
-              className={({ isActive }) => `sidebar-link ${isActive ? "active" : ""}`.trim()}
+              className={({ isActive }) =>
+                `sidebar-link ${isActive ? "active" : ""}`.trim()
+              }
             >
               <span className="sidebar-link-icon">
                 <SidebarIcon name={item.icon} />
@@ -121,7 +123,11 @@ export function AppLayout() {
         </nav>
 
         <div className="sidebar-user">
-          <button type="button" className="danger-outline-btn logout-btn" onClick={logout}>
+          <button
+            type="button"
+            className="danger-outline-btn logout-btn"
+            onClick={logout}
+          >
             <span className="sidebar-link-icon">
               <SidebarIcon name="logout" />
             </span>
