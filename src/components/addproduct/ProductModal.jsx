@@ -1,30 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useCreateCategoryMutation, useCreateSupplierMutation } from "../../context/service/master.service";
-import { buildVariantRows, formatGroupedNumberInput, formatPercentInput, normalizeCsvInput, normalizeSizeInput, parseGroupedNumberInput, parsePercentInput, sumVariantQuantity, toCsvInput } from "../../utils/format";
+import { formatGroupedNumberInput, formatPercentInput, parseGroupedNumberInput, parsePercentInput } from "../../utils/format";
 import { ModalShell } from "../modal/ModalShell";
-
-const COLOR_PRESETS = [
-  "qizil",
-  "qora",
-  "oq",
-  "kok",
-  "havorang",
-  "yashil",
-  "sariq",
-  "kulrang",
-  "jigarrang",
-  "bej",
-  "pushti",
-  "siyohrang",
-  "toq kok",
-  "toq yashil",
-  "bordo",
-  "zangori",
-  "oltin",
-  "kumush",
-  "apelsin",
-  "krem",
-];
 
 const baseForm = {
   id: "",
@@ -40,13 +17,10 @@ const baseForm = {
   paidAmount: "",
   quantity: "",
   unit: "dona",
-  sizeInput: "",
-  colorInput: "",
   allowPieceSale: false,
   pieceUnit: "dona",
   pieceQtyPerBase: "",
   piecePrice: "",
-  variantStocks: [],
 };
 
 function getRelationId(value) {
@@ -154,20 +128,11 @@ function toFormData(current) {
     paidAmount: current.paidAmount ?? "",
     quantity: current.quantity ?? "",
     unit: nextUnit,
-    sizeInput: toCsvInput(current.sizeOptions || []),
-    colorInput: toCsvInput(current.colorOptions || []),
     allowPieceSale: Boolean(current.allowPieceSale),
     pieceUnit: current.pieceUnit || "dona",
     pieceQtyPerBase: current.pieceQtyPerBase ?? "",
     piecePrice: current.piecePrice ?? "",
-    variantStocks: current.variantStocks || [],
   };
-}
-
-function toggleTag(currentValues, nextValue) {
-  return currentValues.includes(nextValue)
-    ? currentValues.filter((item) => item !== nextValue)
-    : [...currentValues, nextValue];
 }
 
 function handleGroupedNumberChange(setter, field) {
@@ -277,8 +242,6 @@ export function ProductModal({ open, current, products = [], categories, supplie
     });
   }, [form.barcode, open, current, products, categories, suppliers]);
 
-  const sizeOptions = useMemo(() => normalizeSizeInput(form.sizeInput), [form.sizeInput]);
-  const colorOptions = useMemo(() => normalizeCsvInput(form.colorInput), [form.colorInput]);
   const productNameOptions = useMemo(
     () => [...new Set(products.map((item) => String(item.name || "").trim()).filter(Boolean))].sort((a, b) => a.localeCompare(b)),
     [products],
@@ -295,26 +258,6 @@ export function ProductModal({ open, current, products = [], categories, supplie
     () => suppliers.filter((item) => [item.name, item.phone, item.address].join(" ").toLowerCase().includes(supplierQuery.toLowerCase())),
     [suppliers, supplierQuery],
   );
-
-  useEffect(() => {
-    if (form.unit !== "dona") return;
-
-    const blueprint = buildVariantRows(sizeOptions, colorOptions);
-    setForm((prev) => {
-      const currentMap = new Map((prev.variantStocks || []).map((item) => [`${item.size}__${item.color || ""}`, item]));
-      const merged = blueprint.map((item) => {
-        const existing = currentMap.get(`${item.size}__${item.color || ""}`);
-        return existing
-          ? { ...item, quantity: existing.quantity === "" ? "" : String(existing.quantity) }
-          : { ...item, quantity: "" };
-      });
-      return {
-        ...prev,
-        variantStocks: merged,
-        quantity: sumVariantQuantity(merged),
-      };
-    });
-  }, [form.unit, form.sizeInput, form.colorInput, sizeOptions, colorOptions]);
 
   useEffect(() => {
     if (!priceSyncReadyRef.current) return;
@@ -370,12 +313,9 @@ export function ProductModal({ open, current, products = [], categories, supplie
               retailPrice: parseGroupedNumberInput(form.retailPrice),
               paidAmount: parseGroupedNumberInput(form.paidAmount),
               wholesalePrice: parseGroupedNumberInput(form.retailPrice),
-              sizeOptions,
-              colorOptions,
-              quantity: form.unit === "dona" ? sumVariantQuantity(form.variantStocks) : Number(form.quantity),
+              quantity: Number(form.quantity),
               pieceQtyPerBase: Number(form.pieceQtyPerBase || 0),
               piecePrice: parseGroupedNumberInput(form.piecePrice),
-              variantStocks: form.unit === "dona" ? form.variantStocks.filter((item) => Number(item.quantity || 0) > 0) : [],
             });
           }}
         >
@@ -493,79 +433,10 @@ export function ProductModal({ open, current, products = [], categories, supplie
             <span>To'langan summa</span>
             <input type="text" inputMode="numeric" value={form.paidAmount} onChange={handleGroupedNumberChange(setForm, "paidAmount")} disabled={form.paymentType === "naqd" || form.paymentType === "qarz"} />
           </label>
-          {form.unit !== "dona" ? (
-            <label>
-              <span>Miqdori</span>
-              <input type="number" min="0" step="1" value={form.quantity} onChange={(event) => setForm((prev) => ({ ...prev, quantity: event.target.value }))} required />
-            </label>
-          ) : null}
-          {form.unit === "dona" ? (
-            <>
-              <label className="full-width">
-                <span>O'lchamlar</span>
-                <input
-                  value={form.sizeInput}
-                  onChange={(event) => setForm((prev) => ({ ...prev, sizeInput: event.target.value }))}
-                  placeholder="O'lchamlarni qo'lda kiriting: masalan x 4-6 41 43"
-                />
-              </label>
-              <label className="full-width">
-                <span>Ranglar</span>
-                <input value={form.colorInput} onChange={(event) => setForm((prev) => ({ ...prev, colorInput: event.target.value }))} placeholder="Qo'shimcha rang kiriting: masalan limon, grafit" />
-              </label>
-              <div className="full-width">
-                <div className="preset-head">
-                  <span className="preset-label">Asosiy ranglar</span>
-                </div>
-                <div className="preset-grid">
-                  {COLOR_PRESETS.map((color) => {
-                    const active = colorOptions.includes(color);
-                    return (
-                      <button
-                        key={color}
-                        type="button"
-                        className={`preset-chip ${active ? "active" : ""}`.trim()}
-                      onClick={() =>
-                        setForm((prev) => ({
-                          ...prev,
-                          colorInput: toCsvInput(toggleTag(normalizeCsvInput(prev.colorInput), color)),
-                        }))
-                      }
-                    >
-                        <span className={`color-dot color-${color.replace(/\s+/g, "-")}`} />
-                        {color}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-              <div className="full-width variant-wrap">
-                <span>Dona variantlari</span>
-                <div className="variant-grid">
-                  {form.variantStocks.map((item, index) => (
-                    <label key={`${item.size}-${item.color || "none"}`}>
-                      <span>{item.size}{item.color ? ` / ${item.color}` : ""}</span>
-                      <input
-                        type="number"
-                        min="0"
-                        step="1"
-                        value={item.quantity}
-                        onChange={(event) =>
-                          setForm((prev) => ({
-                            ...prev,
-                            variantStocks: prev.variantStocks.map((variant, variantIndex) =>
-                            variantIndex === index ? { ...variant, quantity: event.target.value === "" ? "" : String(Number(event.target.value)) } : variant,
-                            ),
-                          }))
-                        }
-                    />
-                    </label>
-                  ))}
-                  {!form.variantStocks.length ? <p className="hint-text">Avval o'lcham yoki ranglarni kiriting</p> : null}
-                </div>
-              </div>
-            </>
-          ) : null}
+          <label>
+            <span>Miqdori</span>
+            <input type="number" min="0" step="1" value={form.quantity} onChange={(event) => setForm((prev) => ({ ...prev, quantity: event.target.value }))} required />
+          </label>
           {inlineError ? <div className="error-box full-width">{inlineError}</div> : null}
 
           <div className="modal-footer full-width">

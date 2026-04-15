@@ -14,7 +14,6 @@ const baseState = {
   paidAmount: "",
   pricingMode: "keep_old",
   note: "",
-  variantStocks: [],
 };
 
 function handleGroupedNumberChange(setter, field) {
@@ -46,7 +45,6 @@ export function RestockModal({ open, product, suppliers, onClose, onSubmit, load
   const [form, setForm] = useState(baseState);
   const priceSyncReadyRef = useRef(false);
   const priceSyncSourceRef = useRef(null);
-  const isVariantUnit = normalizeUnit(product?.unit) === "dona";
 
   useEffect(() => {
     priceSyncReadyRef.current = false;
@@ -66,11 +64,6 @@ export function RestockModal({ open, product, suppliers, onClose, onSubmit, load
       paidAmount: "",
       pricingMode: "keep_old",
       note: "",
-      variantStocks: (product.variantStocks || []).map((item) => ({
-        size: item.size,
-        color: item.color || "",
-        quantity: "",
-      })),
     });
 
     const timer = window.setTimeout(() => {
@@ -102,7 +95,6 @@ export function RestockModal({ open, product, suppliers, onClose, onSubmit, load
             paidAmount: parseGroupedNumberInput(form.paidAmount),
             wholesalePrice: parseGroupedNumberInput(form.retailPrice),
             quantity: Number(form.quantity),
-            variantStocks: form.variantStocks.filter((item) => Number(item.quantity || 0) > 0),
           });
         }}
       >
@@ -113,12 +105,10 @@ export function RestockModal({ open, product, suppliers, onClose, onSubmit, load
             {suppliers.map((item) => <option key={item._id} value={item._id}>{item.name}</option>)}
           </select>
         </label>
-        {!isVariantUnit ? (
-          <label>
-            <span>Miqdori</span>
-            <input type="number" min="0" step="1" value={form.quantity} onChange={(event) => setForm((prev) => ({ ...prev, quantity: event.target.value }))} required />
-          </label>
-        ) : null}
+        <label>
+          <span>Miqdori</span>
+          <input type="number" min="0" step="1" value={form.quantity} onChange={(event) => setForm((prev) => ({ ...prev, quantity: event.target.value }))} required />
+        </label>
         <label>
           <span>Kelish narxi</span>
           <input
@@ -183,34 +173,6 @@ export function RestockModal({ open, product, suppliers, onClose, onSubmit, load
           <span>Qisman to'lov</span>
           <input type="text" inputMode="numeric" value={form.paidAmount} onChange={handleGroupedNumberChange(setForm, "paidAmount")} disabled={form.paymentType !== "qisman"} />
         </label>
-        {isVariantUnit ? (
-          <div className="full-width variant-wrap">
-            <span>Variant kirimlari</span>
-            <div className="variant-grid">
-              {form.variantStocks.map((item, index) => (
-                <label key={`${item.size}-${item.color || "none"}`}>
-                  <span>{item.size}{item.color ? ` / ${item.color}` : ""}</span>
-                  <input
-                    type="number"
-                    min="0"
-                    step="1"
-                    value={item.quantity}
-                    onChange={(event) =>
-                      setForm((prev) => ({
-                        ...prev,
-                        variantStocks: prev.variantStocks.map((variant, variantIndex) =>
-                          variantIndex === index
-                            ? { ...variant, quantity: event.target.value === "" ? "" : String(Number(event.target.value)) }
-                            : variant,
-                        ),
-                      }))
-                    }
-                  />
-                </label>
-              ))}
-            </div>
-          </div>
-        ) : null}
         <div className="modal-footer full-width">
           <button type="button" className="ghost-btn" onClick={onClose}>Bekor qilish</button>
           <button type="submit" className="primary-btn" disabled={loading}>
