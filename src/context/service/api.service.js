@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.VITE_API_BASE_URL || "/api",
+  baseUrl:
+    import.meta.env.VITE_API_BASE_URL ||
+    "https://toshkent-parfum.ataway.uz/api",
   prepareHeaders: (headers) => {
     const token = localStorage.getItem("sklad_token");
     if (token) headers.set("Authorization", `Bearer ${token}`);
